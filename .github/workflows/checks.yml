@@ -1,3 +1,9 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 2 optimizations:
+# - [MEDIUM] Add concurrency group to "checks.yml"
+# - [LOW] Explicitly set fail-fast for large matrix job "tests-default" (5 combinations)
+# Estimated savings: ~4 min/run
+#
 name: Run checks and tests
 
 on:
@@ -9,6 +15,10 @@ on:
     branches:
       - develop
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
 
   checks:
